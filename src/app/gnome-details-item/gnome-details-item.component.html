@@ -1,0 +1,32 @@
+<div class="gnome-details-item">
+  <div class="header">
+    <div class="image-container">
+      <img [src]="gnome.thumbnail" />
+    </div>
+    <div class="details">
+      <h1>{{ gnome.name }}</h1>
+      <div>
+        <span>Age: {{ gnome.age }}</span>
+        <span>Hair Color: {{ gnome.hair_color }}</span>
+      </div>
+      <div>
+        <span>Weight: {{ gnome.weight | number: "1.0-0" }}</span>
+        <span>Height: {{ gnome.height | number: "1.0-0" }}</span>
+      </div>
+      <div class="professions">
+        Professions: {{ gnome.professions.join(", ") }}
+        <span *ngIf="gnome.professions.length == 0">
+          no professions
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="friends">
+    <h3>Friends:</h3>
+    <p *ngIf="friends.length == 0">This gome has no friends :'(</p>
+    <div *ngFor="let f of friends">
+      <app-gnome-small-item [gnome]="f"> </app-gnome-small-item>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,23 @@
+.gnome-details-item {
+  .header {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .image-container {
+    display: flex;
+
+    img {
+      align-self: center;
+      width: 150px;
+      height: auto;
+    }
+  }
+
+  .details {
+    margin: 0px 20px;
+    div {
+      margin-top: 15px;
+    }
+  }
+}
