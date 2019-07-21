@@ -1,4 +1,6 @@
 import { Component, OnInit } from "@angular/core"
+import debounce from "lodash.debounce"
+
 import { GnomeDataService } from "../gnome-data.service.js"
 import { Gnome } from "../gnome.js"
 
@@ -19,9 +21,9 @@ export class GnomeListComponent implements OnInit {
     })
   }
 
-  search() {
+  search = debounce(() => {
     this.gnomeDataService.search(this.searchText).subscribe(gnomes => {
       this.gnomes = gnomes
     })
-  }
+  }, 300)
 }
