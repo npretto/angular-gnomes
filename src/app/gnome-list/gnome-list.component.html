@@ -1,3 +1,5 @@
-<div *ngFor="let gnome of gnomes">
-  <app-gnome-small-item [gnome]="gnome"> </app-gnome-small-item>
+<div *ngIf="gnomes">
+  <div *ngFor="let gnome of gnomes">
+    <app-gnome-small-item [gnome]="gnome"> </app-gnome-small-item>
+  </div>
 </div>

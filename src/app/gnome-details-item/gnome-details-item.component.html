@@ -1,4 +1,8 @@
-<div class="gnome-details-item">
+<div *ngIf="!gnome">
+  Loading
+</div>
+
+<div *ngIf="gnome" class="gnome-details-item">
   <div class="header">
     <div class="image-container">
       <img [src]="gnome.thumbnail" />
@@ -24,7 +28,7 @@
 
   <div class="friends">
     <h3>Friends:</h3>
-    <p *ngIf="friends.length == 0">This gome has no friends :'(</p>
+    <p *ngIf="gnome.friends.length == 0">This gome has no friends :'(</p>
     <div *ngFor="let f of friends">
       <app-gnome-small-item [gnome]="f"> </app-gnome-small-item>
     </div>

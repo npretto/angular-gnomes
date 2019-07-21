@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core"
-import * as gnomesData from "../data.json"
+import { GnomeDataService } from "../gnome-data.service.js"
+import { Gnome } from "../gnome.js"
 
 @Component({
   selector: "app-gnome-list",
@@ -7,9 +8,13 @@ import * as gnomesData from "../data.json"
   styleUrls: ["./gnome-list.component.css"]
 })
 export class GnomeListComponent implements OnInit {
-  gnomes = gnomesData["Brastlewark"]
+  gnomes: Gnome[]
 
-  constructor() {}
+  constructor(private gnomeDataService: GnomeDataService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.gnomeDataService.getGnomes().subscribe(gnomes => {
+      this.gnomes = gnomes
+    })
+  }
 }
