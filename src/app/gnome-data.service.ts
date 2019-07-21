@@ -2,7 +2,8 @@ import { Injectable } from "@angular/core"
 import { HttpClient } from "@angular/common/http"
 import { Gnome } from "./gnome"
 import { Observable } from "rxjs"
-import { filter } from "rxjs/operators"
+import { Cacheable } from "ngx-cacheable"
+import { DOMStorageStrategy } from "ngx-cacheable/common/DOMStorageStrategy"
 
 @Injectable({
   providedIn: "root"
@@ -14,8 +15,16 @@ export class GnomeDataService {
 
   constructor(private http: HttpClient) {
     console.log("ctor gnome data service")
-    this.gnomes = Observable.create(function(observer) {
-      http.get(GnomeDataService.gnomesUrl).subscribe(data => {
+    this.gnomes = this.loadGnomes()
+  }
+
+  @Cacheable({
+    maxAge: 1000 * 60 * 60 * 24 * 2, //cache will last 2 days
+    storageStrategy: DOMStorageStrategy
+  })
+  loadGnomes(): Observable<Gnome[]> {
+    return Observable.create(observer => {
+      this.http.get(GnomeDataService.gnomesUrl).subscribe(data => {
         observer.next(data["Brastlewark"])
         observer.complete()
       })
