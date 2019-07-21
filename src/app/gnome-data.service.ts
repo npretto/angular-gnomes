@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core"
 import { HttpClient } from "@angular/common/http"
 import { Gnome } from "./gnome"
 import { Observable } from "rxjs"
+import { filter } from "rxjs/operators"
 
 @Injectable({
   providedIn: "root"
@@ -42,5 +43,18 @@ export class GnomeDataService {
 
   getGnomes(): Observable<Gnome[]> {
     return this.gnomes
+  }
+
+  search(text: string): Observable<Gnome[]> {
+    const lowerCaseText = text.toLowerCase()
+    return Observable.create(observer => {
+      this.gnomes.subscribe(gnomes => {
+        const filtered = gnomes.filter(g =>
+          g.name.toLowerCase().includes(lowerCaseText)
+        )
+        observer.next(filtered)
+        observer.complete()
+      })
+    })
   }
 }
